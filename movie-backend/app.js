@@ -3,9 +3,23 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose')
+
+mongoose
+  .connect("mongodb://localhost:27017/movie-list", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("MONGO DB CONNECTED");
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var movieRouter = require('./routes/movie/movieRouter');
 
 var app = express();
 
@@ -21,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/movie', movieRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
