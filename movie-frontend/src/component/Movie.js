@@ -62,7 +62,7 @@ export class Movie extends Component {
         }
     };
 
-    updateOnChange = (event) => {
+    updatedOnChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value,
         });
